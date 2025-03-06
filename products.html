@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Parts & Accessories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="icon" href="repair-tools.png" type="image/png">
+
+    <style>
+        :root {
+            --primary-color: #ffd812;
+            --text-color: #333;
+            --border-color: #ddd;
+            --background-color: #f9f9f9;
+            --header-bg: rgba(0, 0, 0, 0.8);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--header-bg);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .back-home {
+            border: 2px solid #666;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .back-home:hover {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-color);
+        }
+
+        .product-section {
+            margin-bottom: 4rem;
+        }
+
+        .product-group {
+            margin-bottom: 3rem;
+        }
+
+        .product-group h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .image-container {
+            flex: 0 0 300px;
+            border: 3px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8f8f8;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .popup img {
+            max-width: 80%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .popup-controls {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1.25rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .nav-button:hover {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .product-container {
+                flex-direction: column;
+            }
+
+            .image-container {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .popup img {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-links">
+                <a href="#tires">Tires</a>
+                <a href="#batteries">Batteries</a>
+                <a href="#interiors">Interiors</a>
+                <a href="#oils">Motor Oils</a>
+            </div>
+            <a href="index.html" class="back-home">⬅ Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Our Product Page</h1>
+            <p>Explore our range of quality motor parts and accessories, including tires, batteries, and interiors.</p>
+        </section>
+
+        <section id="tires" class="product-section">
+            <h2 class="section-title">Tires</h2>
+            
+            <div class="product-group">
+                <h3>Samurai Tires</h3>
+                <div class="product-container">
+                    <div class="image-container">
+                        <img src="https://ph-live-01.slatic.net/p/6026338d78eb141a2653135a93d89b46.jpg" alt="Samurai Tires" onclick="showPopup(0)">
+                    </div>
+                    <div class="product-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2.00 - 17</td><td>₱346</td></tr>
+                                <tr><td>250 - 17</td><td>₱550</td></tr>
+                                <tr><td>275 - 17</td><td>₱650</td></tr>
+                                <tr><td>300 - 17</td><td>₱730</td></tr>
+                                <tr><td>250 - 18</td><td>₱680</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-group">
+                <h3>Bulldog Tires</h3>
+                <div class="product-container">
+                    <div class="image-container">
+                        <img src="https://down-ph.img.susercontent.com/file/ph-11134207-7r98p-lqvfia9onwhw06" alt="Bulldog Tires" onclick="showPopup(1)">
+                    </div>
+                    <div class="product-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2.50 - 17</td><td>₱550</td></tr>
+                                <tr><td>275 - 17</td><td>₱680</td></tr>
+                                <tr><td>275 - 18</td><td>₱700</td></tr>
+                                <tr><td>300 - 17</td><td>₱730</td></tr>
+                                <tr><td>300 - 18</td><td>₱780</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-group">
+                <h3>Tubeless Tires</h3>
+                <div class="product-container">
+                    <div class="image-container">
+                        <img src="https://scontent.fcrk3-1.fna.fbcdn.net/v/t1.6435-9/100699807_2800422043418232_6473077930586013696_n.jpg?stp=dst-jpg_p600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHfW2fVHojzdPUa1cQO_tfxJyJWvJC0TEInIla8kLRMQq5lh71GLMUoXwQESRbQx5Di8SxZBSBmL-pV_uww_sFT&_nc_ohc=Wims-cEenZgQ7kNvgESJYUL&_nc_oc=Adj07bZkidc_Cfg2NxpgN94lWHdWBCs4QQTsDGPhnxFZyXG_QFv2rawefQ2O7EEJ3lQ&_nc_zt=23&_nc_ht=scontent.fcrk3-1.fna&_nc_gid=AXw6BaZJtGQ3Lzmye1YuEXb&oh=00_AYAhOwCPLHRzund1CIwIcNLQRgcxMyQvrY2XCSVsEIM7ZA&oe=67F09186" alt="Tubeless Tires" onclick="showPopup(2)">
+                    </div>
+                    <div class="product-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>70/80 - 14</td><td>₱1,045</td></tr>
+                                <tr><td>80/80 - 14</td><td>₱1,080</td></tr>
+                                <tr><td>90/80 - 14</td><td>₱1,150</td></tr>
+                                <tr><td>100/80 - 14</td><td>₱1,425</td></tr>
+                                <tr><td>110/80 - 14</td><td>₱1,680</td></tr>
+                                <tr><td>120/70 - 14</td><td>₱1,850</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="batteries" class="product-section">
+            <h2 class="section-title">Batteries</h2>
+            
+            <div class="product-group">
+                <h3>DayWay</h3>
+                <div class="product-container">
+                    <div class="image-container">
+                        <img src="https://down-ph.img.susercontent.com/file/sg-11134201-22110-k61uz9yvorjve6" alt="DayWay Batteries" onclick="showPopup(3)">
+                    </div>
+                    <div class="product-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2.5L</td><td>₱325</td></tr>
+                                <tr><td>3L</td><td>₱345</td></tr>
+                                <tr><td>4L</td><td>₱350</td></tr>
+                                <tr><td>5L</td><td>₱440</td></tr>
+                                <tr><td>5A</td><td>₱420</td></tr>
+                                <tr><td>6.5L</td><td>₱560</td></tr>
+                                <tr><td>7L</td><td>₱640</td></tr>
+                                <tr><td>7A</td><td>₱6,800</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-group">
+                <h3>O.D</h3>
+                <div class="product-container">
+                    <div class="image-container">
+                        <img src="https://down-ph.img.susercontent.com/file/ph-11134207-7rasj-m69h6gifdehaaa.webp" alt="O.D Batteries" onclick="showPopup(4)">
+                    </div>
+                    <div class="product-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>YTX4L-BS</td><td>₱480</td></tr>
+                                <tr><td>YTX5L-BS</td><td>₱575</td></tr>
+                                <tr><td>12N5L-BS</td><td>₱620</td></tr>
+                                <tr><td>12N6.5L-BS</td><td>₱650</td></tr>
+                                <tr><td>YTX7A-BS</td><td>₱780</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+  <section id="interiors" class="product-section">
+        <div class="product-group">
+            <h3>KRX Interior</h3>
+            <div class="product-container">
+                <div class="image-container">
+                    <img src="https://scontent.fmnl3-2.fna.fbcdn.net/v/t39.30808-6/474826162_122193771962156634_7538159175580093846_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGYizoutsKBe7o7xTADt3SaBzYMhUVs4lkHNgyFRWziWTVxfAb2QarwfbLkPCUhw4mgSUups9y0b5w2eevBaJUG&_nc_ohc=x8Sh9Lu6xvYQ7kNvgF8rCdY&_nc_oc=AdiwmdF-RMj6F7mUhviXVsL7vR4Zafew5mbULq7m6XpT3IEyb_zs9SYYxKyvMbTs_Xs&_nc_zt=23&_nc_ht=scontent.fmnl3-2.fna&_nc_gid=AOurxUPNCVfA_ymDw3QLj0A&oh=00_AYCjx_amSk4IGFOdkQBOztCzcI7Fw0ZY3fz9GJxiy4RKTw&oe=67CF3C40" 
+                         alt="Interiors" onclick="showPopup(5)">
+                </div>
+                <div class="product-details">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1.85 - 17</td><td></td></tr>
+                            <tr><td>2.00 - 17</td><td></td></tr>
+                            <tr><td>2.25 - 17</td><td>₱100</td></tr>
+                            <tr><td>2.50 - 17</td><td></td></tr>
+                            <tr><td>2.75 - 17</td><td></td></tr>
+                            <tr><td>3.00 - 17</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="oils" class="product-section">
+        <h2 class="section-title">Motor Oils</h2>
+
+        <div class="product-container">
+            <div class="image-container">
+                <img src="https://power-up.ph/wp-content/uploads/2024/01/MOTORCYCLE-OIL-MG-SR100.png" 
+                     alt="Petron Oil" onclick="showPopup(6)">
+            </div>
+            <div class="product-details">
+                <table>
+                    <thead>
+                        <tr><th>Brand</th><th>Size</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Petron</td><td>1L</td><td>₱180</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="product-container">
+            <div class="image-container">
+                <img src="https://ph-test-11.slatic.net/p/7d977dbbb01f7ed0ae94e7628b60c07d.jpg" 
+                     alt="Shell Oil" onclick="showPopup(7)">
+            </div>
+            <div class="product-details">
+                <table>
+                    <thead>
+                        <tr><th>Brand</th><th>Size</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Shell</td><td>800ml</td><td>₱280</td></tr>
+                        <tr><td>Shell</td><td>1L</td><td>₱330</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+         <div class="product-container">
+            <div class="image-container">
+                <img src="https://www.caltex.com/content/dam/caltex/my/products/lubricants/havoline-ezy-4t-sae-20w-40/Havoline-Ezy-4T-SAE-20W-40.png" 
+                     alt="Havoline" onclick="showPopup(8)">
+            </div>
+            <div class="product-details">
+                <table>
+                    <thead>
+                        <tr><th>Brand</th><th>Size</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Havoline</td><td>1L</td><td>₱270</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+         <div class="product-container">
+            <div class="image-container">
+                <img src="https://rs8.com.ph/wp-content/uploads/2023/06/Lazada-SCOOTER-1024x1024.webp" 
+                     alt="RS8" onclick="showPopup(9)">
+            </div>
+            <div class="product-details">
+                <table>
+                    <thead>
+                        <tr><th>Brand</th><th>Size</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>RS8</td><td>1L</td><td>₱220</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div id="image-popup" class="popup" onclick="closePopup()">
+        <img id="popup-img" src="" alt="Product Image">
+        <div class="popup-controls">
+            <button onclick="prevImage(event)" class="nav-button">⬅</button>
+            <button onclick="nextImage(event)" class="nav-button">➡</button>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            "https://ph-live-01.slatic.net/p/6026338d78eb141a2653135a93d89b46.jpg",
+            "https://down-ph.img.susercontent.com/file/ph-11134207-7r98p-lqvfia9onwhw06",
+            "https://scontent.fcrk3-1.fna.fbcdn.net/v/t1.6435-9/100699807_2800422043418232_6473077930586013696_n.jpg",
+            "https://down-ph.img.susercontent.com/file/sg-11134201-22110-k61uz9yvorjve6",
+            "https://down-ph.img.susercontent.com/file/ph-11134207-7rasj-m69h6gifdehaaa.webp",
+            "https://scontent.fmnl3-2.fna.fbcdn.net/v/t39.30808-6/474826162_122193771962156634_7538159175580093846_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGYizoutsKBe7o7xTADt3SaBzYMhUVs4lkHNgyFRWziWTVxfAb2QarwfbLkPCUhw4mgSUups9y0b5w2eevBaJUG&_nc_ohc=x8Sh9Lu6xvYQ7kNvgF8rCdY&_nc_oc=AdiwmdF-RMj6F7mUhviXVsL7vR4Zafew5mbULq7m6XpT3IEyb_zs9SYYxKyvMbTs_Xs&_nc_zt=23&_nc_ht=scontent.fmnl3-2.fna&_nc_gid=AOurxUPNCVfA_ymDw3QLj0A&oh=00_AYCjx_amSk4IGFOdkQBOztCzcI7Fw0ZY3fz9GJxiy4RKTw&oe=67CF3C40", 
+            "https://power-up.ph/wp-content/uploads/2024/01/MOTORCYCLE-OIL-MG-SR100.png",
+            "https://ph-test-11.slatic.net/p/7d977dbbb01f7ed0ae94e7628b60c07d.jpg",
+            "https://www.caltex.com/content/dam/caltex/my/products/lubricants/havoline-ezy-4t-sae-20w-40/Havoline-Ezy-4T-SAE-20W-40.png",
+            "https://rs8.com.ph/wp-content/uploads/2023/06/Lazada-SCOOTER-1024x1024.webp"
+        ];
+
+        let currentIndex = 0;
+
+        function showPopup(index) {
+            if (index >= 0 && index < images.length) {
+                currentIndex = index;
+                const popupImg = document.getElementById('popup-img');
+                popupImg.src = images[currentIndex];
+                document.getElementById('image-popup').style.display = 'flex';
+            } else {
+                console.error("Invalid image index:", index);
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('image-popup').style.display = 'none';
+        }
+
+        function nextImage(event) {
+            event.stopPropagation();
+            changeImage(1);
+        }
+
+        function prevImage(event) {
+            event.stopPropagation();
+            changeImage(-1);
+        }
+
+        function changeImage(direction) {
+            currentIndex = (currentIndex + direction + images.length) % images.length;
+            document.getElementById('popup-img').src = images[currentIndex];
+        }
+    </script>
+
+</body>
+</html>
